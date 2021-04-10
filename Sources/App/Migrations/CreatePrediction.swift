@@ -14,7 +14,7 @@ struct CreatePrediction: Migration {
     }
     
     func prepare(on database: Database) -> EventLoopFuture<Void> {
-        return database.schema("CreatePredictions")
+        return database.schema(Prediction.schema)
             .id()
             .field("title", .string, .required)
             .field("author", .string, .required)
@@ -22,6 +22,6 @@ struct CreatePrediction: Migration {
     }
 
     func revert(on database: Database) -> EventLoopFuture<Void> {
-        return database.schema("todos").delete()
+        return database.schema(Prediction.schema).delete()
     }
 }
